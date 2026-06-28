@@ -1,0 +1,159 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.gch
+*.pch
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pchi
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.exe.stackdump
+
+# Visual Studio files
+.vs/
+.vscode/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.user
+*.suo
+*.userprefs
+*.db
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+!_deps/
+
+# IDE files
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.*.swp
+.classpath
+.project
+.settings/
+*.code-workspace
+
+# Build directories
+build/
+bin/
+lib/
+Debug/
+Release/
+x64/
+x86/
+out/
+obj/
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+*.backup
+*.old
+*.orig
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.log
+
+# Your project specific files
+Huffman.exe
+Huffman
+*.stackdump
+
+# Test files
+test/
+tests/
+*.test
+*.unittest
+
+# Profiling
+*.gcda
+*.gcno
+*.gcov
+gmon.out
+
+# Valgrind
+valgrind-out.txt
+
+# Doxygen
+doc/
+html/
+latex/
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bz2
+*.tgz
+
+# Temporary files from compilation
+*.tmp
+*.temp
+*.orig
+*.rej
+*.patch
+
+# Core dumps
+core.*
+*.core
+
+# Dependency files
+.deps/
+.dirstamp
+*.d
+
+# GPG files
+*.gpg
+*.asc
