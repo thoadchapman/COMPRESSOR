@@ -3,11 +3,16 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-
 using json = nlohmann::json;
 
 int main() {
-  crow::SimpleApp app;
+  crow::App<crow::CORSHandler> app;
+
+  auto &cors = app.get_middleware<crow::CORSHandler>();
+  cors.global()
+      .origin("*")
+      .methods("POST"_method, "OPTIONS"_method)
+      .headers("Content-Type");
 
   CROW_ROUTE(app, "/comprimir")
       .methods(crow::HTTPMethod::Post)([](const crow::request &req) {
@@ -15,7 +20,10 @@ int main() {
         std::string a_comprimir = body["texto"];
         json j;
         j["comprimido"] = comprimir(a_comprimir);
-        return j.dump();
+        crow::response res(200, j.dump());
+        res.set_header("Content-Type", "application/json");
+        return res;
       });
+
   app.port(8080).multithreaded().run();
 }
