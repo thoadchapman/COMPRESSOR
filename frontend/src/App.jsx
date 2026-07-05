@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useApp } from './AppContext';
 import { useCompDescomp } from './compDescomp';
+import Resultado from './Resultado';
 import './App.css';
 
 function App() {
     const [texto, setTexto] = useState('');
-    const { comprimido } = useApp();
+    const { compressa } = useApp();
     const compDescomp = useCompDescomp();
 
     const handlePress = async (e) => {
@@ -19,18 +20,18 @@ function App() {
 
     return (
         <div className='porra-toda'>
-            <title>compressor.</title>
-            <body>
-                <h1>compressor.</h1>
+            <h1>compressor.</h1>
+            <div className="input-container">
                 <input
                     type="text"
-                    placeholder="digite"
+                    placeholder="digite para comprimir..."
                     value={texto}
                     onChange={e => setTexto(e.target.value)}
                     onKeyDown={handlePress}
+                    className="custom-input"
                 />
-                {comprimido && <p>Resultado: {comprimido}</p>}
-            </body>
+            </div>
+            <Resultado />
         </div>
     );
 }
