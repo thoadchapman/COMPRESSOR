@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+ 
+ :root {
+   --text: #6b6375;
+   --text-h: #08060d;
+   --bg: #fff;
+   --border: #e5e4e7;
+   --code-bg: #f4f3ec;
+   --accent: #aa3bff;
+   --accent-bg: rgba(170, 59, 255, 0.1);
+   --accent-border: rgba(170, 59, 255, 0.5);
+   --social-bg: rgba(244, 243, 236, 0.5);
+   --shadow:
+     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+ 
+   /* BLOCKY FONTS - ALL LOWERCASE */
+   --sans: 'Space Mono', system-ui, 'Segoe UI', monospace;
+   --heading: 'Space Mono', system-ui, 'Segoe UI', monospace;
+   --mono: 'Space Mono', ui-monospace, Consolas, monospace;
+ 
+   font: 18px/145% var(--sans);
+   letter-spacing: 0.18px;
+   color-scheme: light dark;
+   color: var(--text);
+   background: var(--bg);
+   font-synthesis: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ 
+   @media (max-width: 1024px) {
+     font-size: 16px;
+   }
+ }
+ 
+ @media (prefers-color-scheme: dark) {
+   :root {
+     --text: #9ca3af;
+     --text-h: #f3f4f6;
+     --bg: #16171d;
+     --border: #2e303a;
+     --code-bg: #1f2028;
+     --accent: #c084fc;
+     --accent-bg: rgba(192, 132, 252, 0.15);
+     --accent-border: rgba(192, 132, 252, 0.5);
+     --social-bg: rgba(47, 48, 58, 0.5);
+     --shadow:
+       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+   }
+ 
+   #social .button-icon {
+     filter: invert(1) brightness(2);
+   }
+ }
+ 
+ body {
+   margin: 0;
+ }
+ 
+ #root {
+   width: 1126px;
+   max-width: 100%;
+   margin: 0 auto;
+   text-align: center;
+   border-inline: 1px solid var(--border);
+   min-height: 100svh;
+   display: flex;
+   flex-direction: column;
+   box-sizing: border-box;
+ }
+ 
+ h1,
+ h2 {
+   font-family: var(--heading);
+   font-weight: 700;
+   color: var(--text-h);
+   text-transform: lowercase;
+   /* CHANGED FROM UPPERCASE TO LOWERCASE */
+ }
+ 
+ h1 {
+   font-size: 56px;
+   letter-spacing: -1.68px;
+   margin: 32px 0;
+ 
+   @media (max-width: 1024px) {
+     font-size: 36px;
+     margin: 20px 0;
+   }
+ }
+ 
+ h2 {
+   font-size: 24px;
+   line-height: 118%;
+   letter-spacing: -0.24px;
+   margin: 0 0 8px;
+ 
+   @media (max-width: 1024px) {
+     font-size: 20px;
+   }
+ }
+ 
+ p {
+   margin: 0;
+ }
+ 
+ code,
+ .counter {
+   font-family: var(--mono);
+   display: inline-flex;
+   border-radius: 4px;
+   color: var(--text-h);
+ }
+ 
+ code {
+   font-size: 15px;
+   line-height: 135%;
+   padding: 4px 8px;
+   background: var(--code-bg);
+ }
+ 
+ /* ============================================ */
+ /* STRING COMPRESSA STYLES */
+ /* ============================================ */
+ 
+ .compressa-container {
+   display: flex;
+   gap: 40px;
+   padding: 20px;
+   align-items: flex-start;
+   min-height: 100vh;
+   text-align: left;
+ }
+ 
+ .dictionary {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   color: #ccff00;
+   /* Greenish neon yellow */
+   font-family: "Space Mono", monospace;
+   font-size: 24px;
+   font-weight: 700;
+   text-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+   letter-spacing: 1px;
+   text-transform: lowercase;
+   padding: 16px;
+   border-right: 2px solid rgba(204, 255, 0, 0.2);
+   min-width: 60px;
+ }
+ 
+ .dict-entry {
+   padding: 4px 8px;
+   border-bottom: 1px solid rgba(204, 255, 0, 0.1);
+ }
+ 
+ .compressed-string {
+   color: #ffffff;
+   /* Bright white */
+   font-family: "Space Mono", monospace;
+   font-size: 24px;
+   font-weight: 400;
+   letter-spacing: 1px;
+   text-transform: lowercase;
+   padding: 16px;
+   word-break: break-all;
+   flex: 1;
+   text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+ }
+ 
+ /* Optional: Add some glow animation to the dictionary */
+ @keyframes neonPulse {
+ 
+   0%,
+   100% {
+     text-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+   }
+ 
+   50% {
+     text-shadow: 0 0 20px rgba(204, 255, 0, 0.6), 0 0 40px rgba(204, 255, 0, 0.2);
+   }
+ }
+ 
+ .dictionary {
+   animation: neonPulse 2s ease-in-out infinite;
+ }
+ 
+ /* Mobile responsive */
+ @media (max-width: 768px) {
+   .compressa-container {
+     flex-direction: column;
+     gap: 20px;
+     padding: 10px;
+   }
+ 
+   .dictionary {
+     flex-direction: row;
+     flex-wrap: wrap;
+     border-right: none;
+     border-bottom: 2px solid rgba(204, 255, 0, 0.2);
+     padding: 10px;
+     min-width: unset;
+     font-size: 20px;
+     gap: 2px;
+   }
+ 
+   .dict-entry {
+     border-bottom: none;
+     border-right: 1px solid rgba(204, 255, 0, 0.1);
+     padding: 4px 8px;
+   }
+ 
+   .compressed-string {
+     font-size: 20px;
+     padding: 10px;
+   }
+ }
