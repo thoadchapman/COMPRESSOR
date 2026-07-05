@@ -1,0 +1,28 @@
+CompileFlags:
+  # Point clangd to the build directory where compile_commands.json lives
+  CompilationDatabase: build
+
+  # Explicit include paths — covers:
+  #   - crow_all.h and nlohmann (vendored in backend/include)
+  #   - GCC 16.1.0 C++ standard library headers (unordered_map, string, etc.)
+  #   - MSYS2 ucrt64 C headers (winsock2.h, etc.)
+  Add:
+    - -std=c++17
+    - -Ibackend/include
+    - -IC:/msys64/ucrt64/include
+    - -IC:/msys64/ucrt64/include/c++/16.1.0
+    - -IC:/msys64/ucrt64/include/c++/16.1.0/x86_64-w64-mingw32
+    - -IC:/msys64/ucrt64/include/c++/16.1.0/backward
+    - -IC:/msys64/ucrt64/x86_64-w64-mingw32/include
+
+  # Strip flags clangd doesn't understand (MinGW response-file tokens)
+  Remove:
+    - -mno-direct-extern-access
+
+Diagnostics:
+  Suppress:
+    - -Wunused-parameter
+    - -Wshadow
+
+Index:
+  Background: Build

@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/COMPRESSOR/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/servidor.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\servidor.dir\\main.cpp.obj -c D:\\COMPRESSOR\\backend\\main.cpp",
+  "file": "D:/COMPRESSOR/backend/main.cpp",
+  "output": "CMakeFiles/servidor.dir/main.cpp.obj"
+},
+{
+  "directory": "D:/COMPRESSOR/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/servidor.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\servidor.dir\\huffman.cpp.obj -c D:\\COMPRESSOR\\backend\\huffman.cpp",
+  "file": "D:/COMPRESSOR/backend/huffman.cpp",
+  "output": "CMakeFiles/servidor.dir/huffman.cpp.obj"
+},
+{
+  "directory": "D:/COMPRESSOR/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/servidor.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\servidor.dir\\Node.cpp.obj -c D:\\COMPRESSOR\\backend\\Node.cpp",
+  "file": "D:/COMPRESSOR/backend/Node.cpp",
+  "output": "CMakeFiles/servidor.dir/Node.cpp.obj"
+}
+]
