@@ -17,7 +17,7 @@ int main() {
   CROW_ROUTE(app, "/comprimir")
       .methods(crow::HTTPMethod::Post)([](const crow::request &req) {
         json body = json::parse(req.body);
-        std::string a_comprimir = body["texto"];
+        std::string a_comprimir = body["dados"];
         json j;
         j["comprimido"] = comprimir(a_comprimir);
         crow::response res(200, j.dump());

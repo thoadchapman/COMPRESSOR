@@ -1,9 +1,9 @@
-#ifndef HUFFMAN_H 
+#ifndef HUFFMAN_H
 #define HUFFMAN_H
 
 #include <string>
 
-std::string comprimir(std::string str);
-std::string descomprimir(std::string comprimida);
+std::string comprimir(const std::string &descomprimida);
+std::string descomprimir(const std::string &comprimida);
 
 #endif
