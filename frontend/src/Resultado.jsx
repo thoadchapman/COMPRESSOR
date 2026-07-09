@@ -1,28 +1,33 @@
 import { useApp } from './AppContext';
 import { useState, useEffect } from 'react';
 
+const taxaDeCompressao = (comprimida, original) => {
+    const diferenca = original.length() - comprimida.length();
+    return diferenca / original.length();
+}
+
 export default function Resultado() {
-    const { compressa } = useApp();
+    const { comprimida, original } = useApp();
     const [dicionario, setDicionario] = useState("");
     const [string, setString] = useState("");
 
     useEffect(() => {
-        if (compressa) {
-            const idx = compressa.indexOf("|");
+        if (comprimida) {
+            const idx = comprimida.indexOf("|");
             if (idx !== -1) {
-                setDicionario(compressa.slice(0, idx));
-                setString(compressa.slice(idx + 1));
+                setDicionario(comprimida.slice(0, idx));
+                setString(comprimida.slice(idx + 1));
             } else {
                 setDicionario("");
-                setString(compressa);
+                setString(comprimida);
             }
         } else {
             setDicionario("");
             setString("");
         }
-    }, [compressa]);
+    }, [comprimida]);
 
-    if (!compressa) return null;
+    if (!comprimida) return null;
 
     const dictEntries = dicionario ? dicionario.split(',') : [];
 
