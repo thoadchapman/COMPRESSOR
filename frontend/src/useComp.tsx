@@ -1,16 +1,5 @@
 import { useApp } from './AppContext';
-
-type Operacao = {
-  endpoint: string;
-  extrairDados: (data: any) => string;
-  setEstado: (valor: string) => void;
-  tipo: string
-};
-
-type Modo = {
-  COMPRIMIR: Operacao;
-  DESCOMPRIMIR: Operacao;
-};
+import { Modo, Operacao } from './Modo'
 
 export const OPCOES = (): Modo => {
   const { setComprimida, setDescomprimida } = useApp();
@@ -30,11 +19,29 @@ export const OPCOES = (): Modo => {
   }
 }
 
+const fileToString = (arquivo: File | string): Promise<string> => {
+  if (typeof arquivo === "string") {
+    return Promise.resolve(arquivo);
+  }
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(reader.result as ArrayBuffer)));
+      resolve(base64);
+    };
+    reader.readAsArrayBuffer(arquivo);
+  });
+};
+
 export const useComp = () => {
-  const { URL_BASE } = useApp();
+  const { URL_BASE, setOriginal, setOriginalString } = useApp();
   const opcoes = OPCOES();
   return async (opcaoSolicitada: keyof Modo, dados: string | File) => {
     try {
+      setOriginal(dados);
+      let dadosString = dados;
+      if (dadosString instanceof File) { dadosString = await fileToString(dados); }
+      setOriginalString(dadosString);
       const opcao: Operacao = opcoes[opcaoSolicitada];
       const response = await fetch(`${URL_BASE}${opcao.endpoint}`, {
         method: 'POST',
@@ -42,13 +49,13 @@ export const useComp = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          dados: dados,
+          dados: dadosString,
           tipo: opcao.tipo
         })
       });
 
       const data = await response.json();
-      opcao.setEstado(data);
+      opcao.setEstado(data.comprimido);
     }
     catch (error) {
       console.error("Erro na compressão:", error);
