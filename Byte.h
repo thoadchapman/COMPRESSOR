@@ -38,3 +38,8 @@ public:
   bool full() const { return pos_byte == 8; }
   void add_padding() { this->deslocar_esq(8 - pos_byte); }
 };
+
+// a: 011
+
+//[ 0 | 1 | 1 | 0 | 1 | 1 | 0 | 1 ] [ 1 |  |  |  |  |  |  |  ] [ 0 | 1 | 1 |  |
+//|  |  |  ] [  |  |  |  |  |  |  |  ]

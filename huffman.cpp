@@ -88,9 +88,7 @@ Bytes comprimir(const Bytes &descomprimido) {
   Bytes body = codificar(descomprimido, dict);
   Bytes full_header = header.make_full_header();
   body.add_padding();
-  Bytes comprimido = header.get_full_header() + body;
-
-  return comprimido;
+  return header.get_full_header() + body;
 }
 std::string descomprimir(const std::string &str) {
   Bytes comprimido = Bytes(str);
@@ -101,9 +99,7 @@ Bytes descomprimir(const Bytes &comprimido) {
   auto freq_dict = header.to_freq_dict();
   MinHeap *heap = new MinHeap(freq_dict);
   Node *raiz = criar_arv_huffman(heap);
-  Bytes comprimido_copy = comprimido;
-  Bytes body =
-      comprimido_copy.sub(header.get_header_size(), comprimido_copy.length());
+  Bytes body = comprimido.sub(header.get_header_size(), comprimido.length());
   Bytes decodificada = decodificar(body, raiz, header.get_original_length());
   return decodificada;
 }
