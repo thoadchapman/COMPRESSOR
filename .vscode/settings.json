@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.h": "cpp"
+    },
+    "clangd.arguments": [
+        "--query-driver=*",
+        "--compile-commands-dir=${workspaceFolder}",
+        "--background-index",
+        "--clang-tidy=false",
+        "--log=error"
+    ]
+}

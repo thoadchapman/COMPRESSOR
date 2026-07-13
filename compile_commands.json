@@ -1,0 +1,12 @@
+[
+  {
+    "directory": "d:/COMPRESSOR",
+    "command": "C:/msys64/ucrt64/bin/g++.exe -std=c++17 -I. -c main.cpp -o main.o",
+    "file": "d:/COMPRESSOR/main.cpp"
+  },
+  {
+    "directory": "d:/COMPRESSOR",
+    "command": "C:/msys64/ucrt64/bin/g++.exe -std=c++17 -I. -c huffman.cpp -o huffman.o",
+    "file": "d:/COMPRESSOR/huffman.cpp"
+  }
+]
