@@ -73,12 +73,12 @@ Bytes decodificar(Bytes comprimido, Node *raiz, size_t qtd_char_original) {
   }
   return decodificada;
 }
-std::string comprimir(const std::string &str) {
+std::string comprimir_huffman(const std::string &str) {
   Bytes descomprimido = Bytes(str);
-  return comprimir(descomprimido).to_string();
+  return comprimir_huffman(descomprimido).to_string();
 }
 
-Bytes comprimir(const Bytes &descomprimido) {
+Bytes comprimir_huffman(const Bytes &descomprimido) {
   int *freq = criar_array_freq(descomprimido);
   MinHeap *heap = new MinHeap(freq);
   Bytes freq_bytes = heap->to_freq_bytes();
@@ -92,11 +92,11 @@ Bytes comprimir(const Bytes &descomprimido) {
 
   return comprimido;
 }
-std::string descomprimir(const std::string &str) {
+std::string descomprimir_huffman(const std::string &str) {
   Bytes comprimido = Bytes(str);
-  return descomprimir(comprimido).to_string();
+  return descomprimir_huffman(comprimido).to_string();
 }
-Bytes descomprimir(const Bytes &comprimido) {
+Bytes descomprimir_huffman(const Bytes &comprimido) {
   Header header(comprimido);
   auto freq_dict = header.to_freq_dict();
   MinHeap *heap = new MinHeap(freq_dict);

@@ -4,9 +4,9 @@
 #include "Bytes.h"
 #include <string>
 
-Bytes comprimir(const Bytes &descomprimido);
-std::string comprimir(const std::string &descomprimido);
+Bytes comprimir_huffman(const Bytes &descomprimido);
+std::string comprimir_huffman(const std::string &descomprimido);
 
-Bytes descomprimir(const Bytes &comprimido);
-std::string descomprimir(const std::string &comprimido);
+Bytes descomprimir_huffman(const Bytes &comprimido);
+std::string descomprimir_huffman(const std::string &comprimido);
 #endif
