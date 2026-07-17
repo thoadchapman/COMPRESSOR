@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include "lzw.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -11,13 +12,12 @@ std::string caminhoDados;
 std::string comprime(std::string str, int metodo) {
   switch (metodo) {
   case 0:
-    return comprimir(str);
+    return comprimir_huffman(str);
   case 1:
     std::cerr << "LZ77 ainda nao implementado\n";
     return "";
   case 2:
-    std::cerr << "LZW ainda nao implementado\n";
-    return "";
+    return comprimir_lzw(str);
   default:
     std::cerr << "Metodo invalido\n";
     return "";
@@ -26,13 +26,12 @@ std::string comprime(std::string str, int metodo) {
 std::string descomprime(std::string str, int metodo) {
   switch (metodo) {
   case 0:
-    return descomprimir(str);
+    return descomprimir_huffman(str);
   case 1:
     std::cerr << "LZ77 ainda nao implementado\n";
     return "";
   case 2:
-    std::cerr << "LZW ainda nao implementado\n";
-    return "";
+    return descomprimir_lzw(str);
   default:
     std::cerr << "Metodo invalido\n";
     return "";
