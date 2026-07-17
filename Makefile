@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -O2 -DPROGRAMA
 
-SRCS = main.cpp huffman.cpp
+SRCS = main.cpp huffman.cpp lzw.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = programa
 
