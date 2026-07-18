@@ -1,5 +1,6 @@
 #include "lz77.h"
 #include "Bytes.h"
+#include "Utils.h"
 #include <algorithm>
 
 const int Nd = 4096; 
@@ -39,10 +40,8 @@ Bytes comprimir_lz77(const Bytes &descomprimido) {
       }
     }
 
-    saida.insert_int(best_p);
-    saida.insert_int(best_l);
-    saida.append(Byte(next_c));
-
+    Utils::inserir_tripla(saida, best_p, best_l, next_c);
+    
     cursor += best_l + 1;
   }
   return saida;
@@ -58,18 +57,10 @@ Bytes descomprimir_lz77(const Bytes &comprimido) {
   size_t i = 0;
   int size = comprimido.length();
 
-  while (i < size) {
-    if (i + sizeof(int) * 2 + 1 > size) break;
+  int p, l;
+  unsigned char c;
 
-    int p = comprimido.sub(i, i + sizeof(int)).to_int();
-    i += sizeof(int);
-    
-    int l = comprimido.sub(i, i + sizeof(int)).to_int();
-    i += sizeof(int);
-    
-    unsigned char c = comprimido[i].get_valor();
-    i++;
-
+  while (Utils::extrair_tripla(comprimido, i, p, l, c)) {
     if (l > 0) {
       int start = saida.length() - p;
       for (int j = 0; j < l; ++j) {
