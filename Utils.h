@@ -24,4 +24,17 @@ namespace Utils{
         i += 4; 
         return true;
     }
+
+    inline void inserir_codigo_lzw(Bytes &saida, int codigo) {
+        saida.append(Byte((codigo >> 8) & 0xFF));
+        saida.append(Byte(codigo & 0xFF));
+    }
+
+    inline bool extrair_codigo_lzw(const Bytes &comprimido, size_t &i, int &codigo) {
+        if (i + 2 > comprimido.length()) return false;
+        
+        codigo = (comprimido[i].get_valor() << 8) | comprimido[i + 1].get_valor();
+        i += 2;
+        return true;
+    }
 }
