@@ -1,5 +1,6 @@
 #include "lzw.h"
 #include "Bytes.h"
+#include "Utils.h" 
 #include <unordered_map>
 #include <vector>
 
@@ -17,6 +18,8 @@ Bytes comprimir_lzw(const Bytes &descomprimido) {
   std::string prefixo = "";
   Bytes saida;
   int dictSize = 256;
+  
+  const int MAX_DICT_SIZE = 65535;
 
   for (size_t i = 0; i < descomprimido.length(); i++) {
     char c = static_cast<char>(descomprimido[i].get_valor());
@@ -25,14 +28,17 @@ Bytes comprimir_lzw(const Bytes &descomprimido) {
     if (dict.find(pc) != dict.end()) {
       prefixo = pc;
     } else {
-      saida.insert_int(dict[prefixo]);
-      dict[pc] = dictSize++;
+      Utils::inserir_codigo_lzw(saida, dict[prefixo]);
+      
+      if (dictSize < MAX_DICT_SIZE) {
+        dict[pc] = dictSize++;
+      }
       prefixo = std::string(1, c);
     }
   }
 
   if (!prefixo.empty()) {
-    saida.insert_int(dict[prefixo]);
+    Utils::inserir_codigo_lzw(saida, dict[prefixo]);
   }
 
   return saida;
@@ -47,31 +53,44 @@ Bytes descomprimir_lzw(const Bytes &comprimido) {
   if (comprimido.length() == 0) return Bytes();
 
   std::vector<int> codigos;
-  for (size_t i = 0; i < comprimido.length(); i += sizeof(int)) {
-    codigos.push_back(comprimido.sub(i, i + sizeof(int)).to_int());
+  size_t i = 0;
+  int cod;
+  
+  while (Utils::extrair_codigo_lzw(comprimido, i, cod)) {
+    codigos.push_back(cod);
   }
 
+  if (codigos.empty()) return Bytes();
+
   std::unordered_map<int, std::string> dict;
-  for (int i = 0; i < 256; i++) {
-    dict[i] = std::string(1, static_cast<char>(i));
+  for (int j = 0; j < 256; j++) {
+    dict[j] = std::string(1, static_cast<char>(j));
   }
+  
   int dictSize = 256;
+  const int MAX_DICT_SIZE = 65535;
 
   std::string anterior = dict[codigos[0]];
   std::string saida_str = anterior;
 
-  for (size_t i = 1; i < codigos.size(); i++) {
-    int p = codigos[i];
+  for (size_t k = 1; k < codigos.size(); k++) {
+    int p = codigos[k];
     std::string atual;
 
     if (dict.find(p) != dict.end()) {
       atual = dict[p];
     } else if (p == dictSize) {
       atual = anterior + anterior[0];
+    } else {
+      break; 
     }
 
     saida_str += atual;
-    dict[dictSize++] = anterior + atual[0];
+    
+    if (dictSize < MAX_DICT_SIZE) {
+      dict[dictSize++] = anterior + atual[0];
+    }
+    
     anterior = atual;
   }
 
