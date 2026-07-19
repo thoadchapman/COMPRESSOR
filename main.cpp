@@ -1,6 +1,7 @@
 #include "huffman.h"
 #include "lzw.h"
 #include "lz77.h"
+#include "Benchmarker.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -150,6 +151,7 @@ void exibirMenu() {
   std::cout << "4 - Descomprimir (Huffman)\n";
   std::cout << "5 - Descomprimir (LZ77)\n";
   std::cout << "6 - Descomprimir (LZW)\n";
+  std::cout << "7 - Gerar Estatisticas de Desempenho\n";
   std::cout << "0 - Sair\n";
   std::cout << "Escolha: ";
 }
@@ -177,6 +179,12 @@ void rodarMenu() {
     case 6:
       descomprime(2);
       break;
+    case 7: 
+      if (qtdRegistros == 0) {
+        std::cerr << "Por favor, inicie o programa passando a quantidade de registros no terminal!\n";
+      } else {
+        gerarEstatisticas(); 
+      }
     case 0:
       std::cout << "Saindo...\n";
       break;
