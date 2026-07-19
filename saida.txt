@@ -1,0 +1,36 @@
+=== RELATORIO DE ESTATISTICAS DE COMPRESSAO ===
+
+--- Execucao 1 ---
+Tamanho Original da Amostra: 35600 bytes
+Huffman - Tamanho: 23465 bytes | Taxa: 65.91% | Tempo: 9.04 ms
+LZ77    - Tamanho: 33868 bytes | Taxa: 95.13% | Tempo: 630.72 ms
+LZW     - Tamanho: 25192 bytes | Taxa: 70.76% | Tempo: 22.08 ms
+
+--- Execucao 2 ---
+Tamanho Original da Amostra: 36345 bytes
+Huffman - Tamanho: 23715 bytes | Taxa: 65.25% | Tempo: 7.95 ms
+LZ77    - Tamanho: 34100 bytes | Taxa: 93.82% | Tempo: 646.56 ms
+LZW     - Tamanho: 25390 bytes | Taxa: 69.86% | Tempo: 22.14 ms
+
+--- Execucao 3 ---
+Tamanho Original da Amostra: 34191 bytes
+Huffman - Tamanho: 22112 bytes | Taxa: 64.67% | Tempo: 7.86 ms
+LZ77    - Tamanho: 31924 bytes | Taxa: 93.37% | Tempo: 612.22 ms
+LZW     - Tamanho: 23814 bytes | Taxa: 69.65% | Tempo: 22.08 ms
+
+--- Execucao 4 ---
+Tamanho Original da Amostra: 36028 bytes
+Huffman - Tamanho: 24001 bytes | Taxa: 66.62% | Tempo: 7.46 ms
+LZ77    - Tamanho: 34352 bytes | Taxa: 95.35% | Tempo: 689.60 ms
+LZW     - Tamanho: 25592 bytes | Taxa: 71.03% | Tempo: 22.36 ms
+
+--- Execucao 5 ---
+Tamanho Original da Amostra: 35950 bytes
+Huffman - Tamanho: 23654 bytes | Taxa: 65.80% | Tempo: 7.17 ms
+LZ77    - Tamanho: 33968 bytes | Taxa: 94.49% | Tempo: 641.08 ms
+LZW     - Tamanho: 25290 bytes | Taxa: 70.35% | Tempo: 21.95 ms
+
+=== MEDIAS FINAIS (M = 5) ===
+HUFFMAN -> Taxa Media: 65.65% | Tempo Medio: 7.90 ms
+LZ77    -> Taxa Media: 94.43% | Tempo Medio: 644.04 ms
+LZW     -> Taxa Media: 70.33% | Tempo Medio: 22.12 ms
