@@ -4,7 +4,7 @@
 #include <algorithm>
 
 const int Nd = 4096; 
-const int Nb = 255;  
+const int Nb = 255;
 
 std::string comprimir_lz77(const std::string &str) {
   Bytes descomprimido = Bytes(str);
@@ -31,7 +31,7 @@ Bytes comprimir_lz77(const Bytes &descomprimido) {
       if (l > best_l) {
         best_l = l;
         best_p = cursor - p_idx;
-        
+
         if (cursor + l < n) {
           next_c = descomprimido[cursor + l].get_valor();
         } else {
@@ -41,7 +41,7 @@ Bytes comprimir_lz77(const Bytes &descomprimido) {
     }
 
     Utils::inserir_tripla(saida, best_p, best_l, next_c);
-    
+
     cursor += best_l + 1;
   }
   return saida;
@@ -55,7 +55,7 @@ std::string descomprimir_lz77(const std::string &str) {
 Bytes descomprimir_lz77(const Bytes &comprimido) {
   Bytes saida;
   size_t i = 0;
-  int size = comprimido.length();
+  size_t size = comprimido.length();
 
   int p, l;
   unsigned char c;
