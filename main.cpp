@@ -15,30 +15,78 @@ std::string caminhoDados;
 int qtdRegistros = 0;
 
 fs::path caminhoEntradaSpotify();
+
 void escreverArquivo(const std::string &caminho, const std::string &conteudo);
 
-void sortearRegistros(int n) {
-  fs::path entrada = caminhoEntradaSpotify();
-  if (entrada.empty()) {
-    std::cerr << "artists.csv nao encontrado em " << caminhoDados << "\n";
+void etapaZero() {
+  fs::path binPath = fs::path(caminhoDados) / "songs.bin";
+  fs::path csvPath = fs::path(caminhoDados) / "songs.csv";
+
+  if (fs::exists(binPath)) {
+    std::cout << "[Etapa 0] Arquivo binario (songs.bin) encontrado. Pulando pre-processamento.\n";
     return;
   }
 
-  std::ifstream arquivo(entrada.string());
-  std::vector<std::string> linhas;
+  std::cout << "[Etapa 0] songs.bin nao encontrado. Iniciando pre-processamento do CSV...\n";
+
+  std::ifstream arquivoCSV(csvPath.string());
+  if (!arquivoCSV.is_open()) {
+    std::cerr << "Erro: songs.csv nao encontrado em " << caminhoDados << "\n";
+    return;
+  }
+
+  std::ofstream arquivoBIN(binPath.string(), std::ios::binary);
+  if (!arquivoBIN.is_open()) {
+    std::cerr << "Erro ao criar songs.bin\n";
+    return;
+  }
+
   std::string linha;
-  while (std::getline(arquivo, linha)) {
-    linhas.push_back(linha);
+  while (std::getline(arquivoCSV, linha)) {
+    size_t tamanho = linha.size();
+    arquivoBIN.write(reinterpret_cast<const char*>(&tamanho), sizeof(size_t));
+    arquivoBIN.write(linha.data(), tamanho);
   }
-  arquivo.close();
 
-  if (linhas.empty()) {
-    std::cerr << "Arquivo de entrada vazio.\n";
+  arquivoCSV.close();
+  arquivoBIN.close();
+  std::cout << "[Etapa 0] Pre-processamento concluido! songs.bin gerado.\n";
+}
+
+void sortearRegistros(int n) {
+  fs::path binPath = fs::path(caminhoDados) / "songs.bin";
+
+  if (!fs::exists(binPath)) {
+    std::cerr << "Erro: songs.bin nao encontrado. A Etapa 0 falhou?\n";
     return;
   }
 
-  std::string cabecalho = linhas.front();
-  std::vector<std::string> registros(linhas.begin() + 1, linhas.end());
+  std::ifstream arquivoBIN(binPath.string(), std::ios::binary);
+  if (!arquivoBIN.is_open()) {
+    std::cerr << "Erro ao abrir o songs.bin para sorteio.\n";
+    return;
+  }
+
+  std::vector<std::string> registros;
+
+  while (arquivoBIN.peek() != EOF) {
+    size_t tamanho;
+    arquivoBIN.read(reinterpret_cast<char*>(&tamanho), sizeof(size_t));
+
+    std::string linha(tamanho, '\0');
+    arquivoBIN.read(&linha[0], tamanho);
+
+    registros.push_back(linha);
+  }
+  arquivoBIN.close();
+
+  if (registros.empty()) {
+    std::cerr << "Arquivo binario de entrada vazio.\n";
+    return;
+  }
+
+  std::string cabecalho = registros.front();
+  registros.erase(registros.begin()); 
 
   if ((size_t)n > registros.size()) {
     std::cerr << "N (" << n << ") maior que a quantidade de registros disponiveis ("
@@ -58,15 +106,10 @@ void sortearRegistros(int n) {
     conteudo += l + "\n";
   }
 
-  fs::path saida = fs::path(caminhoDados) / "spotifyAmostra.csv";
+  fs::path saida = fs::path(caminhoDados) / "spotify.csv";
   escreverArquivo(saida.string(), conteudo);
-  std::cout << "Amostra de " << n << " registros salva em " << saida.string()
-             << "\n";
+  std::cout << "Amostra de " << n << " registros salva em " << saida.string() << "\n";
 }
-
-
-
-
 
 std::string comprime(std::string str, int metodo) {
   switch (metodo) {
@@ -112,7 +155,7 @@ fs::path caminhoEntradaSpotify() {
 }
 
 fs::path caminhoEntradaSpotifyComp() {
-  fs::path csv = fs::path(caminhoDados) / "spotifyAmostra.csv";
+  fs::path csv = fs::path(caminhoDados) / "spotify.csv";
   if (fs::exists(csv))
     return csv;
   return fs::path();
@@ -205,7 +248,9 @@ int main(int argc, char *argv[]) {
     caminhoDados = caminhoDados.substr(1, caminhoDados.size() - 2);
   }
 
-   if (argc >= 3) {
+  etapaZero();
+
+  if (argc >= 3) {
     qtdRegistros = std::stoi(argv[2]);
     sortearRegistros(qtdRegistros);
   }
