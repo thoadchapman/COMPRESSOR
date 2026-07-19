@@ -1,6 +1,6 @@
 #include "huffman.h"
 #include "Bytes.h"
-#include "Minheap.h"
+#include "MinHeap.h"
 #include "Node.h"
 #include <unordered_map>
 
